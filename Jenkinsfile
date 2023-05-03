@@ -1,10 +1,6 @@
 pipeline {
     agent any
     
-    environment {
-        GIT_TOKEN = credentials('git-token')
-    }
-    
     stages {
         stage('Checkout') {
             steps {
