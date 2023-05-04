@@ -7,6 +7,10 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/demo_public']], extensions: [], userRemoteConfigs: [[credentialsId: 'github_cred', url: 'https://github.com/surajkumarbarik/vegam_demo_public.git']])
             }
         }
+        stage('Clone the Git') {
+            git branch: 'demo_public', credentialsId: 'git_cred_1', url: 'https://github.com/surajkumarbarik/vegam_demo_public.git'
+        }
+  
         // stage('SonarQube analysis') {
         //     def scannerHome = tool 'sonarqube';
         //     withSonarQubeEnv(credentialsId: 'sonar_token') {
