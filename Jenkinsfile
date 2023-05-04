@@ -42,8 +42,8 @@ pipeline {
 
 
             steps {
-                withSonarQubeEnv('sonarqube') {
-                    bat 'sonar-scanner.bat'
+                withSonarQubeEnv('SonarQube') {
+                    bat 'set PATH="C:\\Sonar Qube Work Drive\\sonar-scanner-4.7.0.2747-windows\\bin";%PATH% && sonar-scanner.bat'
                 }
             }
         }
