@@ -54,7 +54,11 @@ pipeline {
         stage('SonarQube Scan') {
             steps {
                 withSonarQubeEnv('sonarqube') {
-                    bat "${tool ('sonarqube')}/bin/sonar-scanner"
+                    bat "${tool ('sonarqube')}/bin/sonar-scanner \
+                    -D sonar.login=admin \
+                    -D sonar.password=sonarcube \
+                    -D sonar.projectKey=vegam_demo_public \
+                    -D sonar.host.url=http://192.168.0.119:9099/""
                 }
             }
         }
