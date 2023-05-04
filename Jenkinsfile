@@ -42,12 +42,9 @@ pipeline {
 
 
             steps {
-                sh "${scannerHome}/bin/sonar-scanner \
-                -D sonar.login=admin \
-                -D sonar.password=sonarcube \
-                -Dsonar.projectKey=vegam_demo_public \
-                -Dsonar.sources=src \
-                -Dsonar.host.url=http://192.168.152.42:9099 "
+                withSonarQubeEnv('sonarqube') {
+                    bat 'sonar-scanner.bat'
+                }
             }
         }
 
