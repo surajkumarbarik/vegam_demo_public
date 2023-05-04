@@ -54,7 +54,7 @@ pipeline {
         stage('SonarQube Scan') {
             steps {
                 withSonarQubeEnv('sonarqube') {
-                    bat "${tool (sonarqube)}/bin/sonar-scanner \
+                    bat "
                     -D sonar.login=admin \
                     -D sonar.password=sonarcube \
                     -D sonar.projectKey=vegam_demo_public \
