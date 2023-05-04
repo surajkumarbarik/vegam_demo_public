@@ -53,7 +53,6 @@ pipeline {
 
         stage('SonarQube Scan') {
             steps {
-                echo "done and show"
                 withSonarQubeEnv('sonarqube') {
                     bat "${tool (sonarqube)}/bin/sonar-scanner \
                     -D sonar.login=admin \
