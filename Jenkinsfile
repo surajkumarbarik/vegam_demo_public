@@ -57,7 +57,7 @@ pipeline {
                     bat "${tool ('sonarqube')}/bin/sonar-scanner \
                     -D sonar.login=admin \
                     -D sonar.password=sonarcube \
-                    -D sonar.projectKey=vegam_demo_public \
+                    -D sonar.projectKey=check_git_action \
                     -D sonar.host.url=http://192.168.0.119:9099/"
                 }
             }
