@@ -54,8 +54,7 @@ pipeline {
         stage('SonarQube Scan') {
             steps {
                 withSonarQubeEnv('sonarqube') {
-                    bat "${scannerHome}/bin/sonar-scanner\
-                    echo "success and done""
+                    bat "${scannerHome}/bin/sonar-scanner"
                 }
             }
         }
