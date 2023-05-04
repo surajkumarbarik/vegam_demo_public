@@ -33,7 +33,7 @@ pipeline {
         }
         stage('SonarQube Scan') {
             steps {
-                withSonarQubeEnv(credentialsId: 'sonar_token') {
+                withSonarQubeEnv('sonarqube') {
                     sh "sonarqube/bin/sonar-scanner \
                     -D sonar.login=admin \
                     -D sonar.password=sonarcube \
