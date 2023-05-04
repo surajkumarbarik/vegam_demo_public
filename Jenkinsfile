@@ -32,36 +32,36 @@ pipeline {
             }
         }
 
-        stage('SonarQube Scan') {
-            environment {
-                scannerHome = tool 'sonarqube'
-            }
-            // steps {
-            //     bat 'sonar-scanner -Dsonar.projectKey=vegam_demo_public -Dsonar.sources=. -Dsonar.host.url=http://192.168.152.42:9099 -Dsonar.login=admin -D sonar.password=sonarcube'
-            // }
-
-
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    bat 'C:\\ProgramData\\Jenkins\\.jenkins\\tools\\hudson.plugins.sonar.SonarRunnerInstallation\\sonarqube\\bin";%PATH% && sonar-scanner.bat'
-                }
-            }
-        }
-
-
-
-
         // stage('SonarQube Scan') {
+        //     // environment {
+        //     //     scannerHome = tool 'sonarqube'
+        //     // }
+        //     // steps {
+        //     //     bat 'sonar-scanner -Dsonar.projectKey=vegam_demo_public -Dsonar.sources=. -Dsonar.host.url=http://192.168.152.42:9099 -Dsonar.login=admin -D sonar.password=sonarcube'
+        //     // }
+
+
         //     steps {
-        //         withSonarQubeEnv('sonarqube') {
-        //             bat "sonarqube/bin/sonar-scanner \
-        //             -D sonar.login=admin \
-        //             -D sonar.password=sonarcube \
-        //             -D sonar.projectKey=vegam_demo_public \
-        //             -D sonar.host.url=http://192.168.152.42:9099/"
+        //         withSonarQubeEnv('SonarQube') {
+        //             bat 'C:\\ProgramData\\Jenkins\\.jenkins\\tools\\hudson.plugins.sonar.SonarRunnerInstallation\\sonarqube\\bin";%PATH% && sonar-scanner.bat'
         //         }
         //     }
         // }
+
+
+
+
+        stage('SonarQube Scan') {
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                    bat "${tool (sonarqube)}/bin/sonar-scanner \
+                    -D sonar.login=admin \
+                    -D sonar.password=sonarcube \
+                    -D sonar.projectKey=vegam_demo_public \
+                    -D sonar.host.url=http://192.168.152.42:9099/"
+                }
+            }
+        }
     }
 }
 
