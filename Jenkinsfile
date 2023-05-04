@@ -33,8 +33,14 @@ pipeline {
         }
         stage('SonarQube Scan') {
             steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh 'mvn sonar:sonar'
+                def scannerHome = tool 'sonarqube';
+                withSonarQubeEnv(credentialsId: 'sonar_token') {
+                    sh "${scannerHome}/bin/sonar-scanner \
+                    -D sonar.login=admin \
+                    -D sonar.password=sonarcube \
+                    -D sonar.projectKey=vegam_demo_public \
+                    // -D sonar.exclusions=vendor/**,resources/**,**/*.java \
+                    -D sonar.host.url=http://192.168.152.42:9099/"
                 }
             }
         }
