@@ -31,17 +31,35 @@ pipeline {
                 git branch: 'demo_public', credentialsId: 'git_cred_1', url: 'https://github.com/surajkumarbarik/vegam_demo_public.git'
             }
         }
+
         stage('SonarQube Scan') {
+            environment {
+                scannerHome = tool 'sonarqube'
+            }
             steps {
-                withSonarQubeEnv('sonarqube') {
-                    bat "sonarqube/bin/sonar-scanner \
-                    -D sonar.login=admin \
-                    -D sonar.password=sonarcube \
-                    -D sonar.projectKey=vegam_demo_public \
-                    -D sonar.host.url=http://192.168.152.42:9099/"
-                }
+                sh "${scannerHome}/bin/sonar-scanner \
+                -D sonar.login=admin \
+                -D sonar.password=sonarcube \
+                -Dsonar.projectKey=vegam_demo_public \
+                -Dsonar.sources=src \
+                -Dsonar.host.url=http://192.168.152.42:9099 "
             }
         }
+
+
+
+
+        // stage('SonarQube Scan') {
+        //     steps {
+        //         withSonarQubeEnv('sonarqube') {
+        //             bat "sonarqube/bin/sonar-scanner \
+        //             -D sonar.login=admin \
+        //             -D sonar.password=sonarcube \
+        //             -D sonar.projectKey=vegam_demo_public \
+        //             -D sonar.host.url=http://192.168.152.42:9099/"
+        //         }
+        //     }
+        // }
     }
 }
 
