@@ -33,9 +33,8 @@ pipeline {
         }
         stage('SonarQube Scan') {
             steps {
-                def scannerHome = tool 'sonarqube';
                 withSonarQubeEnv(credentialsId: 'sonar_token') {
-                    sh "${scannerHome}/bin/sonar-scanner \
+                    sh "sonarqube/bin/sonar-scanner \
                     -D sonar.login=admin \
                     -D sonar.password=sonarcube \
                     -D sonar.projectKey=vegam_demo_public \
