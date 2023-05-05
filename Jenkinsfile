@@ -63,6 +63,18 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            script {
+                def scanResult = scanForIssues()
+                if (scanResult.getTotal() > 0) {
+                    echo "Total Issues found: ${scanResult.getTotal()}"
+                    echo "Issues: ${scanResult.getIssues()}"
+                    currentBuild.result = 'UNSTABLE'
+                }
+            }
+        }
+    }
 }
 
 
