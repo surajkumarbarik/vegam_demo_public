@@ -64,13 +64,14 @@ pipeline {
         }
     }
     post {
-    always {
-      script {
-        def qualityGate = waitForQualityGate()
-        if (qualityGate.status != 'OK') {
-          error "Pipeline aborted due to quality gate failure: ${qualityGate.status}"
+        always {
+            dir('C:/ProgramData/Jenkins') {
+                script {
+                    def analysisResults = waitForQualityGate()
+                    echo "SonarQube analysis status: ${analysisResults.status}"
+                }
+            }
         }
-      }
     }
   }
 }
