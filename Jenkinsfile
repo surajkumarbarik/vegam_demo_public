@@ -62,12 +62,15 @@ pipeline {
                 }
             }
         }
-    }
-    post {
-        always {
-            script {
-                def analysisResults = waitForQualityGate()
-                echo "SonarQube analysis status: ${analysisResults.status}"
+        stage ("SonarQube Gatekeeper") {
+            steps {
+                script {
+                    STAGE_NAME = "SonarQube Gatekeeper"
+                    def qualitygate = waitForQualityGate()
+                    if (qualitygate.status != "OK") {
+                        error "Pipeline aborted due to quality gate coverage failure: ${qualitygate.status}"
+                    } 
+                }
             }
         }
     }
