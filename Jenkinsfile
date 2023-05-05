@@ -65,11 +65,9 @@ pipeline {
     }
     post {
         always {
-            {
-                script {
-                    def analysisResults = waitForQualityGate()
-                    echo "SonarQube analysis status: ${analysisResults.status}"
-                }
+            script {
+                def analysisResults = waitForQualityGate()
+                echo "SonarQube analysis status: ${analysisResults.status}"
             }
         }
     }
