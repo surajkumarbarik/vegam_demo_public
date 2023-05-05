@@ -62,20 +62,23 @@ pipeline {
                 }
             }
         }
-        stage ("SonarQube Gatekeeper") {
-            steps {
-                script {
-                    def qualitygate = waitForQualityGate()
-                    echo qualitygate
-                    if (qualitygate.status != "OK") {
-                        error "Pipeline aborted due to quality gate coverage failure: ${qualitygate.status}"
-                    } 
-                    else {
-                        echo "Pipeline succeded due to quality gate coverage successfull: ${qualitygate.status}"
-                    }
+        stage("SonarQube Gatekeeper") {
+    steps {
+        script {
+            withSonarQubeEnv('SonarQube') {
+                bat 'set PATH="C:\\ProgramData\\Jenkins\\.jenkins\\tools\\hudson.plugins.sonar.SonarRunnerInstallation\\sonarqube\bin";%PATH% && sonar-scanner.bat'
+                def qualitygate = waitForQualityGate()
+                echo qualitygate
+                if (qualitygate.status != "OK") {
+                    error "Pipeline aborted due to quality gate coverage failure: ${qualitygate.status}"
+                } 
+                else {
+                    echo "Pipeline succeded due to quality gate coverage successfull: ${qualitygate.status}"
                 }
             }
         }
+    }
+}
     }
 }
 
