@@ -65,7 +65,7 @@ pipeline {
     }
     post {
         always {
-            dir('C:/ProgramData/Jenkins') {
+            {
                 script {
                     def analysisResults = waitForQualityGate()
                     echo "SonarQube analysis status: ${analysisResults.status}"
