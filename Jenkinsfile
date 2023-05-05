@@ -66,7 +66,7 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv('SonarQube') {
-                        bat 'set PATH="C:\\ProgramData\\Jenkins\\.jenkins\\tools\\hudson.plugins.sonar.SonarRunnerInstallation\\sonarqube\bin";%PATH% && sonar-scanner.bat'
+                        bat 'set PATH="C:\\ProgramData\\Jenkins\\.jenkins\\tools\\hudson.plugins.sonar.SonarRunnerInstallation\\sonarqube\\bin";%PATH% && sonar-scanner.bat'
                         def qualitygate = waitForQualityGate()
                         echo qualitygate
                         if (qualitygate.status != "OK") {
