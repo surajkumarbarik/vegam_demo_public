@@ -1,3 +1,8 @@
+// this is the public repo's jenkins file
+
+
+
+
 // pipeline {
 //     agent any
     
@@ -62,22 +67,40 @@ pipeline {
                 }
             }
         }
-        stage("SonarQube Gatekeeper") {
-            steps {
+
+
+    post {
+            always {
                 script {
-                    withSonarQubeEnv('SonarQube') {
-                        bat 'set PATH="C:\\ProgramData\\Jenkins\\.jenkins\\tools\\hudson.plugins.sonar.SonarRunnerInstallation\\sonarqube\\bin";%PATH% && sonar-scanner.bat'
-                        def qualitygate = waitForQualityGate()
-                        echo qualitygate
-                        if (qualitygate.status != "OK") {
-                            error "Pipeline aborted due to quality gate coverage failure: ${qualitygate.status}"
-                        } 
-                        else {
-                            echo "Pipeline succeded due to quality gate coverage successfull: ${qualitygate.status}"
-                        }
+                    def qg = waitForQualityGate()
+                    if (qg.status == 'ERROR' || qg.status == 'FAILED') {
+                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
                     }
                 }
             }
+        }
+
+
+
+
+
+
+        // stage("SonarQube Gatekeeper") {
+        //     steps {
+        //         script {
+        //             withSonarQubeEnv('SonarQube') {
+        //                 bat 'set PATH="C:\\ProgramData\\Jenkins\\.jenkins\\tools\\hudson.plugins.sonar.SonarRunnerInstallation\\sonarqube\\bin";%PATH% && sonar-scanner.bat'
+        //                 def qualitygate = waitForQualityGate()
+        //                 echo qualitygate
+        //                 if (qualitygate.status != "OK") {
+        //                     error "Pipeline aborted due to quality gate coverage failure: ${qualitygate.status}"
+        //                 } 
+        //                 else {
+        //                     echo "Pipeline succeded due to quality gate coverage successfull: ${qualitygate.status}"
+        //                 }
+        //             }
+        //         }
+        //     }
         }
     }
 }
