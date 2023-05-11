@@ -80,11 +80,15 @@ pipeline {
     }
     post {
         always {
-            try {
-                // Your pipeline code goes here
-                currentBuild.currentResult = 'SUCCESS'
-            } catch (Exception e) {
-                currentBuild.currentResult = 'FAILURE'
+            script {
+                try {
+                    // Your pipeline code goes here
+                    currentBuild.currentResult = 'SUCCESS'
+                    embeddableBuildBadge()
+                } catch (Exception e) {
+                    currentBuild.currentResult = 'FAILURE'
+                    embeddableBuildBadge()
+                }
             }
         }
     }
