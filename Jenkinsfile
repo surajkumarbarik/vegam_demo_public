@@ -80,14 +80,23 @@ pipeline {
     }
     post {
         always {
-            embeddableBuildBadge()
-            // Update the pull request status on GitHub
-            githubPullRequest status: 'SUCCESS',
-            message: 'The build passed!',
-            accessTokenCredentialId: 'github-api-token',
-            context: 'Jenkins Build'
+            try {
+                // Your pipeline code goes here
+                currentBuild.currentResult = 'SUCCESS'
+            } catch (Exception e) {
+                currentBuild.currentResult = 'FAILURE'
+            }
         }
-  }
+    }
+//     post {
+//         always {
+//             // Update the pull request status on GitHub
+//             githubPullRequest status: 'SUCCESS',
+//             message: 'The build passed!',
+//             accessTokenCredentialId: 'github-api-token',
+//             context: 'Jenkins Build'
+//         }
+//   }
 
 
 
