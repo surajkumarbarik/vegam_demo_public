@@ -80,6 +80,7 @@ pipeline {
     }
     post {
         always {
+            embeddableBuildBadge()
             // Update the pull request status on GitHub
             githubPullRequest status: 'SUCCESS',
             message: 'The build passed!',
