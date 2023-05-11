@@ -81,7 +81,7 @@ pipeline {
     post {
         always {
             // Update the pull request status on GitHub
-            githubPullRequests status: 'SUCCESS',
+            githubPullRequest status: 'SUCCESS',
             message: 'The build passed!',
             accessTokenCredentialId: 'github-api-token',
             context: 'Jenkins Build'
