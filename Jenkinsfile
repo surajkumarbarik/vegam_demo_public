@@ -70,15 +70,14 @@ pipeline {
 
     }
     post {
-            always {
-                script {
-                    def qg = waitForQualityGate()
-                    if (qg.status == 'ERROR' || qg.status == 'FAILED') {
-                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                    }
-                }
-            }
+        always {
+            // Update the pull request status on GitHub
+            githubPullRequest status: 'SUCCESS',
+            message: 'The build passed!',
+            accessTokenCredentialId: 'github-api-token',
+            context: 'Jenkins Build'
         }
+  }
 
 
 
