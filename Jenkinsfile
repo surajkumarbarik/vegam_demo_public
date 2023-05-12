@@ -76,7 +76,8 @@ pipeline {
                     -D sonar.login=admin \
                     -D sonar.password=sonarcube \
                     -D sonar.projectKey=check_git_action \
-                    -D sonar.host.url=http://192.168.0.112:9099/"
+                    // -D sonar.host.url=http://192.168.0.112:9099/
+                    -D sonar.host.url=http://192.168.159.41:9099/"
                 }
             }
         }
