@@ -39,6 +39,17 @@ pipeline {
             }
         }
 
+        stage('Install Dependencies') {
+            steps {
+                bat 'pip install -r requirements.txt'
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                bat 'pytest'
+            }
+        }
+
         // stage('SonarQube Scan') {
         //     // environment {
         //     //     scannerHome = tool 'sonarqube'
