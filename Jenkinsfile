@@ -41,7 +41,7 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                bat 'pip install -r requirements.txt'
+                bat 'C:/Users/suraj/AppData/Local/Programs/Python/Python310/Scripts/pip.exe install -r requirements.txt'
             }
         }
         stage('Run Tests') {
