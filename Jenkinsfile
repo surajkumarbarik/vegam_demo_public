@@ -46,7 +46,7 @@ pipeline {
         }
         stage('Run Tests') {
             steps {
-                bat 'bat C:/Users/suraj/AppData/Local/Programs/Python/Python310/Scripts/pytest.exe'
+                bat 'C:/Users/suraj/AppData/Local/Programs/Python/Python310/Scripts/pytest.exe'
             }
         }
 
