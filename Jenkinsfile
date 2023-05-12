@@ -77,7 +77,7 @@ pipeline {
                     -D sonar.login=admin \
                     -D sonar.password=sonarcube \
                     -D sonar.projectKey=check_git_action \
-                    -D sonar.host.url=http://192.168.0.112:9099/"
+                    -D sonar.host.url=http://192.168.0.106:9099/"
                 }
             }
         }
@@ -92,29 +92,30 @@ pipeline {
         }
 
     }
+    // post {
+    //     always {
+    //         script {
+    //             try {
+    //                 // Your pipeline code goes here
+    //                 currentBuild.currentResult = 'SUCCESS'
+    //                 embeddableBuildBadge()
+    //             } catch (Exception e) {
+    //                 currentBuild.currentResult = 'FAILURE'
+    //                 embeddableBuildBadge()
+    //             }
+    //         }
+    //     }
+    // }
     post {
         always {
             script {
-                try {
-                    // Your pipeline code goes here
-                    currentBuild.currentResult = 'SUCCESS'
-                    embeddableBuildBadge()
-                } catch (Exception e) {
-                    currentBuild.currentResult = 'FAILURE'
-                    embeddableBuildBadge()
-                }
+                githubPullRequest status: 'SUCCESS',
+                message: 'The build passed!',
+                accessTokenCredentialId: 'github-api-token',
+                context: 'Jenkins Build'
             }
         }
     }
-//     post {
-//         always {
-//             // Update the pull request status on GitHub
-//             githubPullRequest status: 'SUCCESS',
-//             message: 'The build passed!',
-//             accessTokenCredentialId: 'github-api-token',
-//             context: 'Jenkins Build'
-//         }
-//   }
 
 
 
