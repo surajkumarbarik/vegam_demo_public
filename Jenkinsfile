@@ -106,14 +106,10 @@ pipeline {
     //         }
     //     }
     // }
+    
     post {
         always {
-            script {
-                githubPullRequest status: 'SUCCESS',
-                message: 'The build passed!',
-                accessTokenCredentialId: 'github-api-token',
-                context: 'Jenkins Build'
-            }
+            githubPRStatusPublisher buildMessage: message(failureMsg: githubPRMessage('Can\'t set status; build failed.'), successMsg: githubPRMessage('Can\'t set status; build succeeded.')), errorHandler: statusOnPublisherError('UNSTABLE'), statusMsg: githubPRMessage('${GITHUB_PR_COND_REF} run ended'), statusVerifier: allowRunOnStatus('SUCCESS'), unstableAs: 'FAILURE'
         }
     }
 
@@ -171,3 +167,4 @@ pipeline {
 
 
 
+// squ_e4f1fb2d502e71f543ff58b6f29dd89e1b479436
