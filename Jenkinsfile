@@ -49,6 +49,7 @@ pipeline {
                 bat 'C:/Users/suraj/AppData/Local/Programs/Python/Python310/Scripts/pytest.exe'
             }
         }
+        
 
         // stage('SonarQube Scan') {
         //     // environment {
